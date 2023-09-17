@@ -10,5 +10,16 @@ export function createCamera() {
 
     camera.position.set(0, 0, 10);
 
+    let dir = 1;
+    camera.tick = (delta) => {
+        if (camera.position.z < 10 && dir < 0) {
+            dir = 1;
+        } else if (camera.position.z > 20 && dir > 0) {
+            dir = -1;
+        }
+
+        camera.position.z += dir * delta;
+    }
+
     return camera;
 }

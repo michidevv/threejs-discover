@@ -20,7 +20,7 @@ export class World {
         const light = createLights();
         this._scene.add(shape, light);
 
-        this._loop.updatables.push(shape);
+        this._loop.updatables.push(shape, this._camera);
 
         new Resizer(container, this._camera, this._renderer);
     }

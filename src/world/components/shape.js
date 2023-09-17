@@ -12,6 +12,9 @@ export function createShape() {
         mesh.rotation.z += radPerSec * delta;
         mesh.rotation.x += radPerSec * delta;
         mesh.rotation.y += radPerSec * delta;
+
+
+        // mesh.position.x = (mesh.position.x + 1 * delta) % 9;
     }
 
     return mesh;
