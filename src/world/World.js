@@ -3,6 +3,7 @@ import { createCamera } from "./components/camera";
 import { createShape } from "./components/shape";
 import { createLights } from "./components/lights";
 import { createScene } from "./components/scene";
+import { Loop } from './systems/Loop';
 import { Resizer } from "./systems/Resizer";
 import { createRenderer } from "./systems/renderer";
 
@@ -11,6 +12,7 @@ export class World {
         this._camera = createCamera();
         this._scene = createScene();
         this._renderer = createRenderer();
+        this._loop = new Loop(this._camera, this._scene, this._renderer);
         container.append(this._renderer.domElement);
 
         // const cube = createCube();
@@ -18,10 +20,16 @@ export class World {
         const light = createLights();
         this._scene.add(shape, light);
 
-        const resizer = new Resizer(container, this._camera, this._renderer);
+        this._loop.updatables.push(shape);
+
+        new Resizer(container, this._camera, this._renderer);
     }
 
-    render() {
-        this._renderer.render(this._scene, this._camera);
+    start = () => {
+        this._loop.start();
+    }
+
+    stop = () => {
+        this._loop.stop();
     }
 }
